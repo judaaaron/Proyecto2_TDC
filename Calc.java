@@ -7,63 +7,95 @@ import java.util.Scanner;
 
 public class Calc {
     static Scanner leer = new Scanner(System.in);
+    static String input = "./test.calc";
 
     public static void main(String[] args) throws Exception {
+        boolean control = true;
+        while (control == true) {
+            System.out.println("Menu ");
+            System.out.println("1. Realizar operaciones aritmeticas");
+            System.out.println("2. Mostrar Parse Tree");
+            System.out.println("3. Salir");
+            int op = leer.nextInt();
 
-        String cadena;
-        System.out.println("Ingrese operaciones aritmeticas: ");
-        cadena = leer.next();
-        String input = "./test.calc";
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter(input, false);
-            pw = new PrintWriter(fichero);
-            pw.write(cadena);
+            switch (op) {
+                case 1: {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // Nuevamente aprovechamos el finally para
-                // asegurarnos que se cierra el fichero.
-                if (null != fichero)
-                    fichero.close();
-            } catch (Exception e2) {
-                e2.printStackTrace();
+                    String cadena;
+                    System.out.println("Ingrese operaciones aritmeticas: ");
+                    cadena = leer.next();
+
+                    FileWriter archivo = null;
+                    PrintWriter pw = null;
+                    try {
+                        archivo = new FileWriter(input, false);
+                        pw = new PrintWriter(archivo);
+                        pw.write(cadena);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+
+                            if (null != archivo)
+                                archivo.close();
+                        } catch (Exception e2) {
+                            e2.printStackTrace();
+                        }
+                    }
+                    ANTLRFileStream str = new ANTLRFileStream("./test.calc");
+                    CalcLexer lex = new CalcLexer(str);
+                    CommonTokenStream tok = new CommonTokenStream(lex);
+
+                    CalcParser parser = new CalcParser(tok);
+                    ParseTree tree = parser.prog();
+
+                    System.out.println(tree);
+                    break;
+                }
+
+                case 2: {
+                    try {
+                        String arbol = "cmd /c start cmd.exe /K \"grun Calc prog " + input + " -gui";
+                        Runtime.getRuntime().exec(arbol);
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+
+                    break;
+
+                }
+
+                case 3: {
+                    control = false;
+                    break;
+                }
             }
         }
-        ANTLRFileStream str = new ANTLRFileStream(input);
-        CalcLexer lex = new CalcLexer(str);
-        CommonTokenStream tok = new CommonTokenStream(lex);
 
-        CalcParser parser = new CalcParser(tok);
-        ParseTree tree = parser.prog();
-
-        System.out.println(new MyVisitor().visit(tree));
     }
 }
 
-class MyVisitor extends CalcBaseVisitor<Integer> {
+// class MyVisitor extends CalcBase<Integer> {
 
-    @Override
-    public Integer visitProg(CalcParser.ProgContext ctx) {
-        return visitChildren(ctx);
-    }
+// @Override
+// public Integer visitProg(CalcParser.ProgContext ctx) {
+// return visitChildren(ctx);
+// }
 
-    @Override
-    public Integer visitBinaryOp(CalcParser.BinaryOpContext ctx) {
-        return visitChildren(ctx);
-    }
+// @Override
+// public Integer visitBinaryOp(CalcParser.BinaryOpContext ctx) {
+// return visitChildren(ctx);
+// }
 
-    @Override
-    public Integer visitNum(CalcParser.NumContext ctx) {
-        System.out.println(ctx.Num().getText());
-        return visitChildren(ctx);
-    }
+// @Override
+// public Integer visitNum(CalcParser.NumContext ctx) {
+// return Integer.parseInt(ctx.Num().getText());
+// }
 
-    @Override
-    public Integer visitOp(CalcParser.OpContext ctx) {
-        return visitChildren(ctx);
-    }
-}
+// @Override
+// public Integer visitOp(CalcParser.OpContext ctx) {
+// return visitChildren(ctx);
+// }
+// }
