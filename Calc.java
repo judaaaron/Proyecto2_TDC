@@ -12,10 +12,9 @@ public class Calc {
     public static void main(String[] args) throws Exception {
         boolean control = true;
         while (control == true) {
-            System.out.println("Menu ");
+            System.out.println("---Calculadora basica---");
             System.out.println("1. Realizar operaciones aritmeticas");
-            System.out.println("2. Mostrar Parse Tree");
-            System.out.println("3. Salir");
+            System.out.println("2. Salir");
             int op = leer.nextInt();
 
             switch (op) {
@@ -51,10 +50,7 @@ public class Calc {
                     ParseTree tree = parser.prog();
 
                     System.out.println(tree);
-                    break;
-                }
-
-                case 2: {
+                    System.out.println("Mostrando parse tree...");
                     try {
                         String arbol = "cmd /c start cmd.exe /K \"grun Calc prog " + input + " -gui";
                         Runtime.getRuntime().exec(arbol);
@@ -62,15 +58,16 @@ public class Calc {
                     } catch (Exception e) {
                         System.out.println(e);
                     }
-
                     break;
-
                 }
 
-                case 3: {
+                case 2: {
+
                     control = false;
                     break;
+
                 }
+
             }
         }
 
