@@ -123,7 +123,17 @@ public class CalcParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public TerminalNode Num() { return getToken(CalcParser.Num, 0); }
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr; }
+	 
+		public ExprContext() { }
+		public void copyFrom(ExprContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class BinaryOpContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
@@ -133,10 +143,11 @@ public class CalcParser extends Parser {
 		public OpContext op() {
 			return getRuleContext(OpContext.class,0);
 		}
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
+		public BinaryOpContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class NumContext extends ExprContext {
+		public TerminalNode Num() { return getToken(CalcParser.Num, 0); }
+		public NumContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -155,6 +166,10 @@ public class CalcParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new NumContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(10);
 			match(Num);
 			}
@@ -168,7 +183,7 @@ public class CalcParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExprContext(_parentctx, _parentState);
+					_localctx = new BinaryOpContext(new ExprContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
 					setState(12);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
