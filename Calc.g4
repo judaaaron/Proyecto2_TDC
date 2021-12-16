@@ -1,11 +1,16 @@
 grammar Calc;
 
-prog:	expr EOF;
-expr:	expr ('*'|'/') expr
-    |	expr ('+'|'-') expr
-    |	INT
-    |	'(' expr ')'
-    ;
+start : expr EOF;
 
-NEWLINE : [\r\n]+ -> skip ; 
-INT     : [0-9]+ ;		
+expr : expr op expr # binaryOp 
+     | Num          # num
+     ;
+
+
+op : '+'
+   | '-'
+   | '/'
+   | '*'
+   ;
+
+Num : [0-9]+;
