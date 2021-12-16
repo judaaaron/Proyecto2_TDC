@@ -48,6 +48,14 @@ public class Calc {
                     System.out.println();
                     System.out.println("Mostrando parse tree...");
                     try {
+                        Thread.sleep(5000);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    System.out.println();
+                    try {
                         String arbol = "cmd /c start cmd.exe /K \"grun Calc start " + input + " -gui";
                         Runtime.getRuntime().exec(arbol);
 
