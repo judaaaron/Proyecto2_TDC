@@ -2,8 +2,8 @@ grammar Calc;
 	
 start : expr EOF;
 
-expr:	expr signos = ('*'|'/') expr # binaryOp
-    |	expr signos = ('+'|'-') expr # binaryOp
+expr:	expr signos = ('*'|'/') expr # operador
+    |	expr signos = ('+'|'-') expr # operador
     |	Num # num
     ;
 

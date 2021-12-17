@@ -146,29 +146,6 @@ public class CalcParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class BinaryOpContext extends ExprContext {
-		public Token signos;
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
-		}
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
-		}
-		public BinaryOpContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterBinaryOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitBinaryOp(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitBinaryOp(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class NumContext extends ExprContext {
 		public TerminalNode Num() { return getToken(CalcParser.Num, 0); }
 		public NumContext(ExprContext ctx) { copyFrom(ctx); }
@@ -183,6 +160,29 @@ public class CalcParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitNum(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OperadorContext extends ExprContext {
+		public Token signos;
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public OperadorContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).enterOperador(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof CalcListener ) ((CalcListener)listener).exitOperador(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof CalcVisitor ) return ((CalcVisitor<? extends T>)visitor).visitOperador(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -225,15 +225,15 @@ public class CalcParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 					case 1:
 						{
-						_localctx = new BinaryOpContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new OperadorContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(10);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(11);
-						((BinaryOpContext)_localctx).signos = _input.LT(1);
+						((OperadorContext)_localctx).signos = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__0 || _la==T__1) ) {
-							((BinaryOpContext)_localctx).signos = (Token)_errHandler.recoverInline(this);
+							((OperadorContext)_localctx).signos = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -246,15 +246,15 @@ public class CalcParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new BinaryOpContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new OperadorContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(13);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(14);
-						((BinaryOpContext)_localctx).signos = _input.LT(1);
+						((OperadorContext)_localctx).signos = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==T__2 || _la==T__3) ) {
-							((BinaryOpContext)_localctx).signos = (Token)_errHandler.recoverInline(this);
+							((OperadorContext)_localctx).signos = (Token)_errHandler.recoverInline(this);
 						}
 						else {
 							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;

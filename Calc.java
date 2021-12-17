@@ -98,7 +98,12 @@ class MyVisitor extends CalcBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitBinaryOp(CalcParser.BinaryOpContext ctx) {
+    public Integer visitNum(CalcParser.NumContext ctx) {
+        return Integer.parseInt(ctx.Num().getText());
+    }
+
+    @Override
+    public Integer visitOperador(CalcParser.OperadorContext ctx) {
         int lhs = visit(ctx.expr(0));
         int rhs = visit(ctx.expr(1));
 
@@ -115,11 +120,6 @@ class MyVisitor extends CalcBaseVisitor<Integer> {
         }
 
         return resultado;
-    }
-
-    @Override
-    public Integer visitNum(CalcParser.NumContext ctx) {
-        return Integer.parseInt(ctx.Num().getText());
     }
 
 }

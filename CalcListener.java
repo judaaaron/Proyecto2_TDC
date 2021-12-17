@@ -17,18 +17,6 @@ public interface CalcListener extends ParseTreeListener {
 	 */
 	void exitStart(CalcParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code binaryOp}
-	 * labeled alternative in {@link CalcParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinaryOp(CalcParser.BinaryOpContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code binaryOp}
-	 * labeled alternative in {@link CalcParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinaryOp(CalcParser.BinaryOpContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code num}
 	 * labeled alternative in {@link CalcParser#expr}.
 	 * @param ctx the parse tree
@@ -40,4 +28,16 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNum(CalcParser.NumContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code operador}
+	 * labeled alternative in {@link CalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperador(CalcParser.OperadorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code operador}
+	 * labeled alternative in {@link CalcParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperador(CalcParser.OperadorContext ctx);
 }
