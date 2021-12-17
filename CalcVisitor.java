@@ -29,10 +29,4 @@ public interface CalcVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNum(CalcParser.NumContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CalcParser#op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOp(CalcParser.OpContext ctx);
 }

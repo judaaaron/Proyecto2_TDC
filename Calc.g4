@@ -1,16 +1,10 @@
 grammar Calc;
-
+	
 start : expr EOF;
 
-expr : expr op expr # binaryOp 
-     | Num          # num
-     ;
+expr:	expr signos = ('*'|'/') expr # binaryOp
+    |	expr signos = ('+'|'-') expr # binaryOp
+    |	Num # num
+    ;
 
-
-op : '+'
-   | '-'
-   | '/'
-   | '*'
-   ;
-
-Num : [0-9]+;
+Num     : [0-9]+ ;

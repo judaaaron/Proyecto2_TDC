@@ -91,9 +91,9 @@ public class Calc {
 }
 
 class MyVisitor extends CalcBaseVisitor<Integer> {
+
     @Override
     public Integer visitStart(CalcParser.StartContext ctx) {
-
         return visit(ctx.expr());
     }
 
@@ -102,7 +102,7 @@ class MyVisitor extends CalcBaseVisitor<Integer> {
         int lhs = visit(ctx.expr(0));
         int rhs = visit(ctx.expr(1));
 
-        String op = ctx.op().getText();
+        String op = ctx.signos.getText();
         int resultado = 0;
         if (op.equals("+")) {
             resultado = lhs + rhs;
@@ -120,11 +120,6 @@ class MyVisitor extends CalcBaseVisitor<Integer> {
     @Override
     public Integer visitNum(CalcParser.NumContext ctx) {
         return Integer.parseInt(ctx.Num().getText());
-
     }
 
-    @Override
-    public Integer visitOp(CalcParser.OpContext ctx) {
-        return visitChildren(ctx);
-    }
 }

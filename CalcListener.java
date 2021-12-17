@@ -40,14 +40,4 @@ public interface CalcListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNum(CalcParser.NumContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CalcParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterOp(CalcParser.OpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CalcParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitOp(CalcParser.OpContext ctx);
 }
