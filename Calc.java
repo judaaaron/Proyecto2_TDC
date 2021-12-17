@@ -48,7 +48,7 @@ public class Calc {
                     System.out.println();
                     System.out.println("Mostrando parse tree...");
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(1000);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
